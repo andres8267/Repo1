@@ -1,5 +1,86 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Restaurante";
+}
+
+<h2 class="mt-4">Productos</h2>
+
+<div class="d-flex gap-5 mt-4">
+
+    <!-- FORMULARIO -->
+    <form method="post" asp-action="Restaurante">
+
+        <div class="mb-2">
+            <label>Hamburguesa</label>
+            <input type="number" name="Hamburguesa" class="form-control" />
+        </div>
+
+        <div class="mb-2">
+            <label>Cerveza</label>
+            <input type="number" name="Cerveza" class="form-control" />
+        </div>
+
+        <div class="mb-2">
+            <label>Gaseosa</label>
+            <input type="number" name="Gaseosa" class="form-control" />
+        </div>
+
+        <div class="mb-2">
+            <label>Ensalada</label>
+            <input type="number" name="Ensalada" class="form-control" />
+        </div>
+
+        <div class="mb-2">
+            <label>Salchichas</label>
+            <input type="number" name="Salchichas" class="form-control" />
+        </div>
+
+        <div class="mb-2">
+            <label>Refresco</label>
+            <input type="number" name="Refresco" class="form-control" />
+        </div>
+
+        <div class="mb-2">
+            <label>Sopa</label>
+            <input type="number" name="Sopa" class="form-control" />
+        </div>
+
+        <div class="mb-2">
+            <label>Postre</label>
+            <input type="number" name="Postre" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Aceptar</button>
+        <button type="reset" class="btn btn-secondary mt-3">Limpiar</button>
+
+    </form>
+
+    <!-- TABLA DE PRECIOS -->
+    <table class="table table-bordered w-50">
+        <thead class="table-light">
+            <tr>
+                <th>Menú</th>
+                <th>Precio $</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Hamburguesa</td><td>5.00</td></tr>
+            <tr><td>Cerveza</td><td>3.00</td></tr>
+            <tr><td>Gaseosa</td><td>2.50</td></tr>
+            <tr><td>Ensalada</td><td>4.00</td></tr>
+            <tr><td>Salchichas</td><td>3.50</td></tr>
+            <tr><td>Refresco</td><td>2.00</td></tr>
+            <tr><td>Sopa</td><td>3.00</td></tr>
+            <tr><td>Postre</td><td>4.50</td></tr>
+        </tbody>
+    </table>
+
+</div>
+
+@if (ViewBag.Total != null)
+{
+    <div class="mt-4">
+        <p><strong>Venta total:</strong> $ @ViewBag.Venta</p>
+        <p><strong>Impuesto (15%):</strong> $ @ViewBag.Impuesto</p>
+        <p><strong>Total a pagar:</strong> $ @ViewBag.Total</p>
+    </div>
 }
