@@ -1,86 +1,126 @@
-﻿@{
+﻿@model List<Restaurante2.Models.Menu>
+
+@{
     ViewData["Title"] = "Restaurante";
 }
 
-<h2 class="mt-4">Productos</h2>
+<style>
+    body {
+        background-image: url('https://images.unsplash.com/photo-1555992336-03a23c7b20ee');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
 
-<div class="d-flex gap-5 mt-4">
+    .card-restaurante {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    }
 
-    <!-- FORMULARIO -->
-    <form method="post" asp-action="Restaurante">
+    .titulo-restaurante {
+        font-weight: bold;
+        color: #c0392b;
+    }
+</style>
 
-        <div class="mb-2">
-            <label>Hamburguesa</label>
-            <input type="number" name="Hamburguesa" class="form-control" />
+<div class="container mt-5">
+    <div class="card-restaurante">
+
+        <h2 class="text-center mb-4 titulo-restaurante">
+            🍽 Restaurante Gourmet
+        </h2>
+
+        <div class="row">
+
+            <!-- FORMULARIO -->
+            <div class="col-md-5">
+                <form method="post" asp-action="Restaurante">
+
+                    <div class="mb-2">
+                        <label class="fw-bold">🍔 Hamburguesa</label>
+                        <input type="number" name="Hamburguesa" class="form-control" />
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="fw-bold">🍺 Cerveza</label>
+                        <input type="number" name="Cerveza" class="form-control" />
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="fw-bold">🥤 Gaseosa</label>
+                        <input type="number" name="Gaseosa" class="form-control" />
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="fw-bold">🥗 Ensalada</label>
+                        <input type="number" name="Ensalada" class="form-control" />
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="fw-bold">🌭 Salchichas</label>
+                        <input type="number" name="Salchichas" class="form-control" />
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="fw-bold">🧃 Refresco</label>
+                        <input type="number" name="Refresco" class="form-control" />
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="fw-bold">🍲 Sopa</label>
+                        <input type="number" name="Sopa" class="form-control" />
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="fw-bold">🍰 Postre</label>
+                        <input type="number" name="Postre" class="form-control" />
+                    </div>
+
+                    <button type="submit" class="btn btn-success mt-3 w-100">
+                        💰 Calcular Total
+                    </button>
+
+                    <button type="reset" class="btn btn-secondary mt-2 w-100">
+                        🔄 Limpiar
+                    </button>
+
+                </form>
+            </div>
+
+            <!-- TABLA DINÁMICA -->
+            <div class="col-md-7">
+                <table class="table table-hover table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Menú</th>
+                            <th>Precio $</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Nombre</td>
+                                <td>$ @item.Precio</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
         </div>
 
-        <div class="mb-2">
-            <label>Cerveza</label>
-            <input type="number" name="Cerveza" class="form-control" />
-        </div>
+        @if (ViewBag.Total != null)
+        {
+            <div class="alert alert-warning mt-4 text-center">
+                <h5>🧾 Resumen de Compra</h5>
+                <p><strong>Venta:</strong> $ @ViewBag.Venta</p>
+                <p><strong>Impuesto (15%):</strong> $ @ViewBag.Impuesto</p>
+                <p><strong>Total a pagar:</strong> $ @ViewBag.Total</p>
+            </div>
+        }
 
-        <div class="mb-2">
-            <label>Gaseosa</label>
-            <input type="number" name="Gaseosa" class="form-control" />
-        </div>
-
-        <div class="mb-2">
-            <label>Ensalada</label>
-            <input type="number" name="Ensalada" class="form-control" />
-        </div>
-
-        <div class="mb-2">
-            <label>Salchichas</label>
-            <input type="number" name="Salchichas" class="form-control" />
-        </div>
-
-        <div class="mb-2">
-            <label>Refresco</label>
-            <input type="number" name="Refresco" class="form-control" />
-        </div>
-
-        <div class="mb-2">
-            <label>Sopa</label>
-            <input type="number" name="Sopa" class="form-control" />
-        </div>
-
-        <div class="mb-2">
-            <label>Postre</label>
-            <input type="number" name="Postre" class="form-control" />
-        </div>
-
-        <button type="submit" class="btn btn-primary mt-3">Aceptar</button>
-        <button type="reset" class="btn btn-secondary mt-3">Limpiar</button>
-
-    </form>
-
-    <!-- TABLA DE PRECIOS -->
-    <table class="table table-bordered w-50">
-        <thead class="table-light">
-            <tr>
-                <th>Menú</th>
-                <th>Precio $</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr><td>Hamburguesa</td><td>5.00</td></tr>
-            <tr><td>Cerveza</td><td>3.00</td></tr>
-            <tr><td>Gaseosa</td><td>2.50</td></tr>
-            <tr><td>Ensalada</td><td>4.00</td></tr>
-            <tr><td>Salchichas</td><td>3.50</td></tr>
-            <tr><td>Refresco</td><td>2.00</td></tr>
-            <tr><td>Sopa</td><td>3.00</td></tr>
-            <tr><td>Postre</td><td>4.50</td></tr>
-        </tbody>
-    </table>
-
-</div>
-
-@if (ViewBag.Total != null)
-{
-    <div class="mt-4">
-        <p><strong>Venta total:</strong> $ @ViewBag.Venta</p>
-        <p><strong>Impuesto (15%):</strong> $ @ViewBag.Impuesto</p>
-        <p><strong>Total a pagar:</strong> $ @ViewBag.Total</p>
     </div>
-}
+</div>
